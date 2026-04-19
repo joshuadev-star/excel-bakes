@@ -15,7 +15,7 @@ export function Contact() {
     message: ''
   })
 
-  const handleChange = (e) => {
+  const handleChange = () => {
     const { name, value } = e.target
     setFormData(prev => ({
       ...prev,
@@ -70,7 +70,7 @@ export function Contact() {
                     Location
                   </h3>
                   <p className="text-sm sm:text-base text-foreground/70">
-                    123 Baking Street, Lagos Nigeria
+                    20 ishola street oluti, Lagos Nigeria
                   </p>
                 </div>
               </div>
@@ -84,7 +84,7 @@ export function Contact() {
                     Phone
                   </h3>
                   <p className="text-sm sm:text-base text-foreground/70">
-                    +234 (0) 123-456-7890
+                    +2348029130571
                   </p>
                 </div>
               </div>
@@ -98,7 +98,7 @@ export function Contact() {
                     Email
                   </h3>
                   <p className="text-sm sm:text-base text-foreground/70">
-                    hello@excelbakes.com
+                    oninyeexcel123@gmail.com
                   </p>
                 </div>
               </div>
@@ -112,10 +112,10 @@ export function Contact() {
                     Hours
                   </h3>
                   <p className="text-sm sm:text-base text-foreground/70">
-                    Mon - Sat: 8:00 AM - 8:00 PM
+                    Mon - Sat: 10:00 AM - 4:00 PM
                   </p>
                   <p className="text-sm sm:text-base text-foreground/70">
-                    Sun: 10:00 AM - 6:00 PM
+                    DAY OFF: SUNDAY
                   </p>
                 </div>
               </div>
