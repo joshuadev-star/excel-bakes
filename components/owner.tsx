@@ -7,8 +7,8 @@ export function Owner() {
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div className="relative h-96 md:h-full order-2 md:order-1">
             <div className="absolute inset-0 bg-gradient-to-br from-accent/30 to-primary/20 rounded-3xl"></div>
-            <img 
-              src="/owner-portrait.jpg" 
+            <img
+              src="/IMG-20240818-WA0014.jpg" 
               alt="Oninye Nwankwo, owner of Excel Bakes" 
               className="relative rounded-3xl shadow-2xl object-cover w-full h-full"
             />
