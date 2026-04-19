@@ -18,7 +18,7 @@ export function Owner() {
             <Badge className="bg-accent text-primary w-fit">About the Creator</Badge>
             
             <h2 className="text-3xl md:text-5xl font-bold text-foreground leading-tight">
-              Meet Oninye Nwankwo
+              Meet ONYINYECHUKWU GIFT NWANKWO
             </h2>
 
             <div className="space-y-4">
