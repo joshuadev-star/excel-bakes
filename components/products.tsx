@@ -1,0 +1,114 @@
+'use client'
+
+import { Card } from '@/components/ui/card'
+import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
+import { Star } from 'lucide-react'
+
+const products = [
+  {
+    id: 1,
+    name: 'Rich Chocolate Cake',
+    category: 'Cakes',
+    price: '₦8,500',
+    image: '/cake-chocolate.jpg',
+    description: 'Decadent layers of moist chocolate cake with velvety chocolate frosting',
+    rating: 4.9,
+    reviews: 124
+  },
+  {
+    id: 2,
+    name: 'Vanilla Dream Cake',
+    category: 'Cakes',
+    price: '₦7,500',
+    image: '/cake-vanilla.jpg',
+    description: 'Classic vanilla sponge with smooth buttercream and elegant decorations',
+    rating: 4.8,
+    reviews: 98
+  },
+  {
+    id: 3,
+    name: 'Strawberry Bliss',
+    category: 'Cakes',
+    price: '₦9,000',
+    image: '/cake-strawberry.jpg',
+    description: 'Fresh strawberry shortcake with whipped cream and seasonal berries',
+    rating: 5.0,
+    reviews: 156
+  },
+  {
+    id: 4,
+    name: 'Pastry Assortment',
+    category: 'Small Chops',
+    price: '₦3,500',
+    image: '/pastries.jpg',
+    description: 'Mix of fresh croissants, Danish pastries, and delightful small treats',
+    rating: 4.7,
+    reviews: 203
+  }
+]
+
+export function Products() {
+  return (
+    <section id="products" className="py-20 md:py-32 bg-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-16">
+          <Badge className="bg-accent text-primary mb-4">Our Collections</Badge>
+          <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-4">
+            Artisan Creations
+          </h2>
+          <p className="text-lg text-foreground/60 max-w-2xl mx-auto">
+            From show-stopping cakes to delightful pastries, each creation is made with premium ingredients and meticulous attention to detail.
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {products.map((product) => (
+            <Card key={product.id} className="group overflow-hidden hover:shadow-xl transition-all duration-300 border-border">
+              <div className="relative overflow-hidden h-48">
+                <img 
+                  src={product.image} 
+                  alt={product.name}
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                />
+                <Badge className="absolute top-3 right-3 bg-primary text-white">{product.category}</Badge>
+              </div>
+              
+              <div className="p-5 space-y-3">
+                <div>
+                  <h3 className="font-semibold text-foreground text-lg group-hover:text-primary transition">
+                    {product.name}
+                  </h3>
+                  <p className="text-sm text-foreground/60 mt-1">{product.description}</p>
+                </div>
+
+                <div className="flex items-center gap-1">
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <Star 
+                      key={i} 
+                      className="w-4 h-4 fill-yellow-400 text-yellow-400"
+                    />
+                  ))}
+                  <span className="text-xs text-foreground/60 ml-2">({product.reviews})</span>
+                </div>
+
+                <div className="flex items-center justify-between pt-2 border-t border-border">
+                  <span className="text-2xl font-bold text-primary">{product.price}</span>
+                  <Button size="sm" className="bg-primary hover:bg-primary/90 text-white">
+                    Add
+                  </Button>
+                </div>
+              </div>
+            </Card>
+          ))}
+        </div>
+
+        <div className="text-center mt-12">
+          <Button size="lg" className="bg-primary hover:bg-primary/90 text-white">
+            View All Products
+          </Button>
+        </div>
+      </div>
+    </section>
+  )
+}
