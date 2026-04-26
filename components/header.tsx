@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { Button } from '@/components/ui/button'
+import Link from "next/link"
 
 export function Header() {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -18,13 +19,16 @@ export function Header() {
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center gap-8">
-          <a href="#products" className="text-sm text-foreground hover:text-primary transition">
+          <a href="/" className="text-sm text-foreground hover:text-primary transition">
+            Home
+          </a>
+          <a href="/product" className="text-sm text-foreground hover:text-primary transition">
             Products
           </a>
-          <a href="#owner" className="text-sm text-foreground hover:text-primary transition">
+          <a href="/about" className="text-sm text-foreground hover:text-primary transition">
             About
           </a>
-          <a href="#contact" className="text-sm text-foreground hover:text-primary transition">
+          <a href="/contact" className="text-sm text-foreground hover:text-primary transition">
             Contact
           </a>
         </div>
@@ -32,10 +36,12 @@ export function Header() {
         {/* Desktop Button */}
         <div className="hidden md:block">
           <Button className="bg-primary hover:bg-primary/90 text-white">
-            Order Now
+            <Link href="/product">
+              Order Now
+            </Link>
           </Button>
         </div>
-
+6
         {/* Mobile Menu Button */}
         <button
           className="md:hidden text-2xl"
@@ -48,18 +54,21 @@ export function Header() {
       {/* Mobile Menu */}
       {menuOpen && (
         <div className="md:hidden px-4 pb-4 space-y-3">
-          <a href="#products" className="block text-sm text-foreground hover:text-primary">
+          <a href="/product" className="block text-sm text-foreground hover:text-primary">
             Products
           </a>
-          <a href="#owner" className="block text-sm text-foreground hover:text-primary">
+          <a href="/about" className="block text-sm text-foreground hover:text-primary">
             About
           </a>
-          <a href="#contact" className="block text-sm text-foreground hover:text-primary">
+          <a href="/contact" className="block text-sm text-foreground hover:text-primary">
             Contact
           </a>
 
           <Button className="w-full bg-primary hover:bg-primary/90 text-white">
-            Order Now
+            <Link href="/product">
+              Order Now
+            </Link>
+            
           </Button>
         </div>
       )}

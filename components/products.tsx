@@ -1,8 +1,12 @@
 'use client'
 
+import { useState } from 'react'
+import Image from 'next/image'
+import { motion, AnimatePresence } from 'framer-motion'
 import { Card } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
 import { Star } from 'lucide-react'
 
 const products = [
@@ -10,9 +14,9 @@ const products = [
     id: 1,
     name: 'Rich Chocolate Cake',
     category: 'Cakes',
-    price: '₦25,500',
+    price: 25500,
     image: '/cake-chocolate.jpg',
-    description: 'Decadent layers of moist chocolate cake with velvety chocolate frosting',
+    description: 'Decadent layers of moist chocolate cake with velvety frosting',
     rating: 4.9,
     reviews: 124
   },
@@ -20,9 +24,9 @@ const products = [
     id: 2,
     name: 'Vanilla Dream Cake',
     category: 'Cakes',
-    price: '₦17,500',
+    price: 17500,
     image: '/cake-vanilla.jpg',
-    description: 'Classic vanilla sponge with smooth buttercream and elegant decorations',
+    description: 'Classic vanilla sponge with smooth buttercream',
     rating: 4.8,
     reviews: 98
   },
@@ -30,27 +34,27 @@ const products = [
     id: 3,
     name: 'Strawberry Bliss',
     category: 'Cakes',
-    price: '₦19,000',
+    price: 19000,
     image: '/cake-strawberry.jpg',
-    description: 'Fresh strawberry shortcake with whipped cream and seasonal berries',
-    rating: 5.0,
+    description: 'Fresh strawberry shortcake with whipped cream',
+    rating: 5,
     reviews: 156
   },
   {
     id: 4,
-    name: 'Small chops',
+    name: 'Small Chops',
     category: 'Snacks',
-    price: '₦9,500',
+    price: 9500,
     image: '/pastries.jpg',
-    description: 'Mix of fresh croissants, Danish pastries, and delightful small treats',
+    description: 'Mix of croissants, pastries and treats',
     rating: 4.7,
     reviews: 203
   },
   {
     id: 5,
     name: 'Chocolate Cake',
-    category: 'Cake',
-    price: '₦20,500',
+    category: 'Cakes',
+    price: 20500,
     image: '/5d9b590c2abfe277d1be02b3934c39f5.jpg',
     description: 'Rich chocolate cake for every celebration',
     rating: 4.7,
@@ -60,7 +64,7 @@ const products = [
     id: 6,
     name: 'Sweet Meatpie',
     category: 'Snacks',
-    price: '₦3,500',
+    price: 3500,
     image: '/709e014bdc73a561629780c4919bd019.jpg',
     description: 'Golden baked meatpie with tasty filling',
     rating: 4.7,
@@ -70,7 +74,7 @@ const products = [
     id: 7,
     name: 'Samosa',
     category: 'Snacks',
-    price: '₦6,700',
+    price: 6700,
     image: '/sanju-m-gurung-WX-wxGHFTzA-unsplash.jpg',
     description: 'Crispy samosa filled with savory goodness',
     rating: 4.7,
@@ -80,7 +84,7 @@ const products = [
     id: 8,
     name: 'Spring Roll',
     category: 'Snacks',
-    price: '₦5,500',
+    price: 5500,
     image: '/budi-puspa-wijaya-snEe9nRTqyY-unsplash.jpg',
     description: 'Crunchy spring rolls perfect for parties',
     rating: 4.7,
@@ -88,103 +92,189 @@ const products = [
   }
 ]
 
-export function Products() {
-  return (
-    <section id="products" className="py-16 sm:py-20 md:py-32 bg-white">
-      
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* Section Header */}
-        <div className="text-center mb-12 md:mb-16">
-          <Badge className="bg-accent text-primary mb-4">Our Collections</Badge>
+const categories = ['All', 'Cakes', 'Snacks']
 
-          <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-foreground mb-4">
-            Artisan Creations
+export function Products({ preview = false }) {
+
+  const [category, setCategory] = useState('All')
+  const [search, setSearch] = useState('')
+
+  const filtered = products.filter((p) => {
+    const matchCategory = category === 'All' || p.category === category
+    const matchSearch = p.name.toLowerCase().includes(search.toLowerCase())
+    return matchCategory && matchSearch
+  })
+
+  const displayedProducts = preview ? filtered.slice(0, 4) : filtered
+
+  return (
+    <section className="py-16 md:py-24 bg-white">
+
+      <div className="max-w-7xl mx-auto px-4">
+
+        {/* Header */}
+
+        <div className="text-center mb-12">
+
+          <Badge className="bg-accent text-primary mb-4">
+            Our Products
+          </Badge>
+
+          <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-4">
+            Freshly Baked Delights
           </h2>
 
-          <p className="text-base sm:text-lg text-foreground/60 max-w-2xl mx-auto">
-            From show-stopping cakes to delightful pastries, each creation is made with premium ingredients and meticulous attention to detail.
+          <p className="text-foreground/60 max-w-2xl mx-auto">
+            Premium cakes and snacks crafted with love and the finest ingredients.
           </p>
+
         </div>
 
-        {/* Responsive Product Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          
-          {products.map((product) => (
-            <Card
-              key={product.id}
-              className="group overflow-hidden hover:shadow-xl transition-all duration-300 border-border"
-            >
-              
-              {/* Image */}
-              <div className="relative overflow-hidden h-52 sm:h-48">
-                <img
-                  src={product.image}
-                  alt={product.name}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                />
 
-                <Badge className="absolute top-3 right-3 bg-primary text-white">
-                  {product.category}
-                </Badge>
-              </div>
+        {/* Filters */}
 
-              {/* Content */}
-              <div className="p-5 space-y-3">
-                
-                <div>
-                  <h3 className="font-semibold text-foreground text-lg group-hover:text-primary transition">
-                    {product.name}
-                  </h3>
+        {!preview && (
 
-                  <p className="text-sm text-foreground/60 mt-1">
-                    {product.description}
-                  </p>
-                </div>
+          <div className="flex flex-col md:flex-row gap-4 justify-between mb-10">
 
-                {/* Rating */}
-                <div className="flex items-center gap-1">
-                  {Array.from({ length: 5 }).map((_, i) => (
-                    <Star
-                      key={i}
-                      className="w-4 h-4 fill-yellow-400 text-yellow-400"
+            <Input
+              placeholder="Search products..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="max-w-sm"
+            />
+
+            <div className="flex gap-2 flex-wrap">
+
+              {categories.map((cat) => (
+
+                <Button
+                  key={cat}
+                  variant={category === cat ? 'default' : 'outline'}
+                  onClick={() => setCategory(cat)}
+                  className="rounded-full"
+                >
+                  {cat}
+                </Button>
+
+              ))}
+
+            </div>
+
+          </div>
+
+        )}
+
+
+        {/* Product Grid */}
+
+        <motion.div
+          layout
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
+        >
+
+          <AnimatePresence>
+
+            {displayedProducts.map((product) => (
+
+              <motion.div
+                key={product.id}
+                layout
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0 }}
+              >
+
+                <Card className="group overflow-hidden hover:shadow-xl transition">
+
+                  <div className="relative h-52 overflow-hidden">
+
+                    <Image
+                      src={product.image}
+                      alt={product.name}
+                      fill
+                      className="object-cover group-hover:scale-110 transition duration-300"
                     />
-                  ))}
 
-                  <span className="text-xs text-foreground/60 ml-2">
-                    ({product.reviews})
-                  </span>
-                </div>
+                    <Badge className="absolute top-3 right-3 bg-primary text-white">
+                      {product.category}
+                    </Badge>
 
-                {/* Price + Button */}
-                <div className="flex items-center justify-between pt-2 border-t border-border">
-                  <span className="text-xl sm:text-2xl font-bold text-primary">
-                    {product.price}
-                  </span>
+                  </div>
 
-                  <Button
-                    size="sm"
-                    className="bg-primary hover:bg-primary/90 text-white"
-                  >
-                    Add
-                  </Button>
-                </div>
+                  <div className="p-5 space-y-3">
 
-              </div>
-            </Card>
-          ))}
+                    <h3 className="font-semibold text-lg group-hover:text-primary transition">
+                      {product.name}
+                    </h3>
 
-        </div>
+                    <p className="text-sm text-foreground/60">
+                      {product.description}
+                    </p>
 
-        {/* Bottom Button */}
-        <div className="text-center mt-10 md:mt-12">
-          <Button
-            size="lg"
-            className="bg-primary hover:bg-primary/90 text-white w-full sm:w-auto"
-          >
-            View All Products
-          </Button>
-        </div>
+                    {/* rating */}
+
+                    <div className="flex items-center gap-1">
+
+                      {Array.from({ length: 5 }).map((_, i) => (
+
+                        <Star
+                          key={i}
+                          className="w-4 h-4 fill-yellow-400 text-yellow-400"
+                        />
+
+                      ))}
+
+                      <span className="text-xs text-foreground/60 ml-2">
+                        ({product.reviews})
+                      </span>
+
+                    </div>
+
+                    {/* price */}
+
+                    <div className="flex justify-between items-center pt-2 border-t">
+
+                      <span className="text-xl font-bold text-primary">
+                        ₦{product.price.toLocaleString()}
+                      </span>
+
+                      <Button size="sm">
+                        Add
+                      </Button>
+
+                    </div>
+
+                  </div>
+
+                </Card>
+
+              </motion.div>
+
+            ))}
+
+          </AnimatePresence>
+
+        </motion.div>
+
+
+        {/* View all */}
+
+        {preview && (
+
+          <div className="text-center mt-12">
+
+            <a href="/products">
+
+              <Button size="lg">
+                View All Products
+              </Button>
+
+            </a>
+
+          </div>
+
+        )}
 
       </div>
 
