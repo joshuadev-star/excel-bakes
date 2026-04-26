@@ -41,7 +41,6 @@ export function Header() {
             </Link>
           </Button>
         </div>
-6
         {/* Mobile Menu Button */}
         <button
           className="md:hidden text-2xl"
