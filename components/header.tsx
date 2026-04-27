@@ -58,12 +58,6 @@ export function Header() {
 
           </Link>
 
-          <Button asChild>
-            <Link href="/Menu">
-              Order Now
-            </Link>
-          </Button>
-
           <button
             className="md:hidden"
             onClick={() => setMenuOpen(!menuOpen)}

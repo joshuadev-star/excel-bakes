@@ -18,7 +18,7 @@ export default function CheckoutPage() {
     message += `%0ATotal: ₦${total}`
 
     const url =
-      `https://wa.me/2349069053454?text=${message}`
+      `https://wa.me/2348029130571?text=${message}`
 
     window.open(url, "_blank")
   }
