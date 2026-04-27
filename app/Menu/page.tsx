@@ -1,12 +1,12 @@
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
-import { Products } from "@/components/products";
+import { Menu } from "@/components/Menu";
 
 export default function ProductsPage() {
     return (
         <div>
             <Header />
-            <Products />
+            <Menu />
             <Footer />
         </div>
     )

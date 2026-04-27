@@ -8,8 +8,9 @@ import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Star } from 'lucide-react'
+import { Product, useCart } from "@/components/CartContext"
 
-const products = [
+const menus: Product[] = [
   {
     id: 1,
     name: 'Rich Chocolate Cake',
@@ -18,7 +19,7 @@ const products = [
     image: '/cake-chocolate.jpg',
     description: 'Decadent layers of moist chocolate cake with velvety frosting',
     rating: 4.9,
-    reviews: 124
+    reviews: 1
   },
   {
     id: 2,
@@ -28,7 +29,7 @@ const products = [
     image: '/cake-vanilla.jpg',
     description: 'Classic vanilla sponge with smooth buttercream',
     rating: 4.8,
-    reviews: 98
+    reviews: 2
   },
   {
     id: 3,
@@ -38,7 +39,7 @@ const products = [
     image: '/cake-strawberry.jpg',
     description: 'Fresh strawberry shortcake with whipped cream',
     rating: 5,
-    reviews: 156
+    reviews: 3
   },
   {
     id: 4,
@@ -48,7 +49,7 @@ const products = [
     image: '/pastries.jpg',
     description: 'Mix of croissants, pastries and treats',
     rating: 4.7,
-    reviews: 203
+    reviews: 4
   },
   {
     id: 5,
@@ -58,7 +59,7 @@ const products = [
     image: '/5d9b590c2abfe277d1be02b3934c39f5.jpg',
     description: 'Rich chocolate cake for every celebration',
     rating: 4.7,
-    reviews: 203
+    reviews: 5
   },
   {
     id: 6,
@@ -68,7 +69,7 @@ const products = [
     image: '/709e014bdc73a561629780c4919bd019.jpg',
     description: 'Golden baked meatpie with tasty filling',
     rating: 4.7,
-    reviews: 203
+    reviews: 6
   },
   {
     id: 7,
@@ -78,7 +79,7 @@ const products = [
     image: '/sanju-m-gurung-WX-wxGHFTzA-unsplash.jpg',
     description: 'Crispy samosa filled with savory goodness',
     rating: 4.7,
-    reviews: 203
+    reviews: 7
   },
   {
     id: 8,
@@ -88,18 +89,19 @@ const products = [
     image: '/budi-puspa-wijaya-snEe9nRTqyY-unsplash.jpg',
     description: 'Crunchy spring rolls perfect for parties',
     rating: 4.7,
-    reviews: 203
+    reviews: 8
   }
 ]
 
 const categories = ['All', 'Cakes', 'Snacks']
 
-export function Products({ preview = false }) {
+export function Menu({ preview = false }) {
 
   const [category, setCategory] = useState('All')
   const [search, setSearch] = useState('')
+  const { addToCart } = useCart()
 
-  const filtered = products.filter((p) => {
+  const filtered = menus.filter((p) => {
     const matchCategory = category === 'All' || p.category === category
     const matchSearch = p.name.toLowerCase().includes(search.toLowerCase())
     return matchCategory && matchSearch
@@ -138,7 +140,7 @@ export function Products({ preview = false }) {
           <div className="flex flex-col md:flex-row gap-4 justify-between mb-10">
 
             <Input
-              placeholder="Search products..."
+              placeholder="Search Menu..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               className="max-w-sm"
@@ -239,8 +241,11 @@ export function Products({ preview = false }) {
                         ₦{product.price.toLocaleString()}
                       </span>
 
-                      <Button size="sm">
-                        Add
+                      <Button
+                        size="sm"
+                        onClick={() => addToCart(product)}
+                      >
+                        Add to Cart
                       </Button>
 
                     </div>
@@ -264,10 +269,10 @@ export function Products({ preview = false }) {
 
           <div className="text-center mt-12">
 
-            <a href="/products">
+            <a href="/Menu">
 
               <Button size="lg">
-                View All Products
+                View All Menu
               </Button>
 
             </a>
